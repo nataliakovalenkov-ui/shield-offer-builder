@@ -7,19 +7,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 <style>
 :root{
-  --bg:#ffffff; --canvas:#fbfbfc; --ink:#1a1d21; --ink-2:#5b6168; --ink-3:#8a9099;
-  --line:#ebecee; --line-2:#e0e2e5; --hover:#f5f6f7;
-  --accent:#1a1d21; --accent-soft:#f0f1f2;
-  --blue:#3b6ef5; --blue-soft:#eef2fe;
+  --bg:#ffffff; --canvas:#f7f7f8; --ink:#1a1d21; --ink-2:#5b6168; --ink-3:#8a9099;
+  --line:#e2e3e3; --line-2:#e2e3e3; --hover:#f0f0f2;
+  --accent:#0e68dc; --accent-soft:#e8f2fb;
+  --blue:#0e68dc; --blue-soft:#cde2f2;
   --green:#1f9d5b; --green-soft:#e9f7ef;
   --amber:#b5781f; --amber-soft:#fbf2e2;
   --red:#d2473a; --red-soft:#fdeceb;
-  --violet:#7a5af0; --violet-soft:#f1eefe;
-  --r:10px; --r-s:7px; --r-l:14px;
-  --shadow-sm:0 1px 2px rgba(20,23,28,.04);
-  --shadow-lg:0 20px 50px -16px rgba(20,23,28,.28);
+  --violet:#8593d0; --violet-soft:#e8eaf8;
+  --r:7px; --r-s:6px; --r-l:8px;
+  --shadow-sm:0 1px 3px rgba(14,104,220,.08);
+  --shadow-lg:0 20px 50px -16px rgba(14,104,220,.22);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -27,47 +28,62 @@ body{font-family:'Inter',sans-serif;background:var(--canvas);color:var(--ink);
   -webkit-font-smoothing:antialiased;font-size:13.5px;line-height:1.5;letter-spacing:-.06px}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
 input,select,textarea{font-family:inherit}
-::selection{background:var(--ink);color:#fff}
+::selection{background:var(--accent);color:#fff}
 
-.app{display:grid;grid-template-columns:52px 236px 1fr;min-height:100vh}
+.app{display:grid;grid-template-columns:236px 1fr;min-height:100vh}
 
 /* mini rail */
-.rail-mini{background:var(--bg);border-right:1px solid var(--line);display:flex;
+.rail-mini{background:#f5f5f6;border-right:1px solid var(--line);display:flex;
   flex-direction:column;align-items:center;padding:14px 0;gap:6px;position:sticky;top:0;height:100vh}
 .rail-logo{width:30px;height:30px;display:grid;place-items:center;margin-bottom:8px}
 .rail-logo svg{width:24px;height:24px}
 .rail-ws{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;
-  font-weight:700;font-size:13px;border:1px solid var(--line-2);background:var(--bg);
-  color:var(--ink);transition:.14s}
-.rail-ws.active{background:var(--ink);color:#fff;border-color:var(--ink)}
-.rail-ws:hover{border-color:var(--ink-3)}
+  font-weight:700;font-size:13px;border:1px solid rgba(133,147,208,.25);background:transparent;
+  color:var(--violet);transition:.14s}
+.rail-ws.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.rail-ws:hover{border-color:var(--violet)}
 .rail-mini .spacer{flex:1}
-.rail-ic{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;
-  color:var(--ink-3);transition:.14s}
-.rail-ic:hover{background:var(--hover);color:var(--ink)}
+.rail-ic{width:32px;height:32px;border-radius:var(--r-s);display:grid;place-items:center;
+  color:var(--violet);transition:.14s}
+.rail-ic:hover{background:var(--accent-soft);color:var(--accent)}
 .rail-ic svg{width:17px;height:17px}
 
 /* sidebar */
-.side{background:var(--bg);border-right:1px solid var(--line);padding:16px 12px;
+.side{background:var(--bg);border-right:1px solid var(--line);padding:20px 10px 16px;
   display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
-.side-head{padding:6px 8px 16px}
-.side-title{font-size:14.5px;font-weight:600}
-.nav-group{font-size:10.5px;font-weight:600;letter-spacing:.4px;color:var(--ink-3);
-  text-transform:uppercase;padding:14px 8px 6px}
-.nav-item{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:7px;
-  font-size:13px;font-weight:450;color:var(--ink-2);transition:.13s}
-.nav-item svg{width:16px;height:16px;flex:none;stroke-width:1.8}
-.nav-item:hover{background:var(--hover);color:var(--ink)}
-.nav-item.active{background:var(--accent-soft);color:var(--ink);font-weight:550}
-.nav-item.sub{margin-left:26px;padding:6px 8px;font-size:12.5px}
-.nav-item.sub.active{background:var(--accent-soft)}
-.side-foot{margin-top:auto;padding-top:12px;display:flex;flex-direction:column;gap:8px}
+.side-head{padding:2px 6px 22px;display:flex;align-items:flex-start;gap:10px}
+.side-toggle{width:24px;height:24px;border-radius:6px;display:grid;place-items:center;
+  color:var(--accent);flex:none;margin-top:2px;transition:.13s}
+.side-toggle:hover{background:var(--accent-soft)}
+.side-toggle svg{width:14px;height:14px;stroke-width:2.5}
+.side-brand{flex:1;min-width:0}
+.side-title{font-size:15px;font-weight:700;letter-spacing:-.2px;line-height:1.2}
+.side-title .t-blue{color:var(--accent)}
+.side-title .t-dark{color:var(--ink)}
+.side-ver{font-size:10px;color:var(--ink-3);margin-top:3px;letter-spacing:.2px}
+.nav-group{font-size:9.5px;font-weight:600;letter-spacing:.5px;color:var(--ink-3);
+  opacity:.7;text-transform:uppercase;padding:14px 10px 5px;margin:0 2px}
+.nav-group:first-of-type{padding-top:2px}
+.nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--r);
+  font-size:13.5px;font-weight:450;color:var(--ink-2);transition:.13s;margin:1px 0}
+.nav-item svg{width:17px;height:17px;flex:none;stroke-width:1.8;color:var(--ink-3);transition:.13s}
+.nav-item:hover{background:rgba(205,226,242,.55);color:var(--ink)}
+.nav-item:hover svg{color:var(--accent)}
+.nav-item.active{background:var(--accent-soft);color:var(--ink);font-weight:600}
+.nav-item.active svg{color:var(--accent)}
+.nav-item.sub{margin-left:28px;padding:8px 12px;font-size:13px;margin-top:1px;margin-bottom:1px}
+.nav-item.sub.active{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.nav-item.sub.active svg{color:var(--accent)}
+.side-foot{margin-top:auto;padding-top:12px;border-top:1px solid rgba(133,147,208,.2);
+  display:flex;flex-direction:column;gap:8px}
 .limit-pill{display:flex;align-items:center;gap:8px;justify-content:center;
-  border:1px solid var(--line-2);border-radius:8px;padding:8px;font-size:12px;
-  color:var(--ink-2);font-weight:450}
-.limit-pill::before{content:"";width:9px;height:9px;border-radius:50%;border:2px solid var(--blue)}
-.side-user{display:flex;align-items:center;gap:9px;padding:7px 8px}
-.u-ava{width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;
+  border:1px solid rgba(133,147,208,.25);border-radius:var(--r-s);padding:8px;font-size:12px;
+  color:var(--ink-2);font-weight:450;background:rgba(255,255,255,.5)}
+.limit-pill::before{content:"";width:9px;height:9px;border-radius:50%;border:2px solid var(--accent)}
+.side-user{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:var(--r);
+  transition:.13s;cursor:pointer}
+.side-user:hover{background:rgba(205,226,242,.55)}
+.u-ava{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;
   display:grid;place-items:center;font-weight:600;font-size:11px;flex:none}
 .side-user div{font-size:12px;line-height:1.3}
 .side-user small{color:var(--ink-3);font-size:11px}
@@ -83,17 +99,17 @@ input,select,textarea{font-family:inherit}
 .status-chip{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:500;
   color:var(--amber);background:var(--amber-soft);padding:5px 10px;border-radius:20px}
 .status-chip .dot{width:6px;height:6px;border-radius:50%;background:var(--amber)}
-.tb-link{padding:6px;border-radius:7px;color:var(--ink-3);display:grid;place-items:center}
-.tb-link:hover{background:var(--hover);color:var(--ink)}
+.tb-link{padding:6px;border-radius:var(--r-s);color:var(--ink-3);display:grid;place-items:center}
+.tb-link:hover{background:var(--hover);color:var(--accent)}
 .tb-link svg{width:17px;height:17px}
 
-.btn{padding:8px 14px;border-radius:8px;font-size:13px;font-weight:550;transition:.13s;
+.btn{padding:8px 14px;border-radius:var(--r);font-size:13px;font-weight:550;transition:.13s;
   display:inline-flex;align-items:center;gap:7px;white-space:nowrap;letter-spacing:-.1px}
 .btn svg{width:15px;height:15px;stroke-width:2}
-.btn-dark{background:var(--ink);color:#fff}
-.btn-dark:hover{background:#000}
+.btn-dark{background:var(--accent);color:#fff}
+.btn-dark:hover{background:#0a57bf}
 .btn-line{border:1px solid var(--line-2);color:var(--ink-2);background:var(--bg)}
-.btn-line:hover{border-color:var(--ink-3);color:var(--ink)}
+.btn-line:hover{border-color:#bebebe;color:var(--accent)}
 .btn-sm{padding:6px 11px;font-size:12px}
 
 .canvas{display:grid;grid-template-columns:1fr 320px;flex:1;min-height:0}
@@ -107,28 +123,28 @@ input,select,textarea{font-family:inherit}
 .ph-desc{color:var(--ink-2);font-size:13.5px;margin-top:7px;max-width:580px;line-height:1.55}
 
 /* step tabs */
-.steptabs{display:flex;gap:3px;margin-bottom:24px;border-bottom:1px solid var(--line);flex-wrap:wrap}
-.steptab{display:flex;align-items:center;gap:8px;padding:9px 13px;font-size:12.5px;
+.steptabs{display:flex;gap:0px;margin-bottom:24px;border-bottom:1px solid var(--line);flex-wrap:nowrap;overflow-x:auto}
+.steptab{display:flex;align-items:center;gap:5px;padding:8px 9px;font-size:11.5px;
   font-weight:500;color:var(--ink-3);transition:.13s;border-bottom:2px solid transparent;
-  margin-bottom:-1px}
-.steptab:hover{color:var(--ink-2)}
+  margin-bottom:-1px;white-space:nowrap;flex-shrink:0}
+.steptab:hover{color:var(--accent)}
 .steptab .st-num{width:19px;height:19px;border-radius:50%;display:grid;place-items:center;
-  font-size:10px;font-weight:600;background:var(--accent-soft);color:var(--ink-3);flex:none}
+  font-size:10px;font-weight:600;background:var(--hover);color:var(--ink-3);flex:none}
 .steptab.done{color:var(--ink-2)}
 .steptab.done .st-num{background:var(--green);color:#fff}
-.steptab.current{color:var(--ink);font-weight:600;border-bottom-color:var(--ink)}
-.steptab.current .st-num{background:var(--ink);color:#fff}
+.steptab.current{color:var(--accent);font-weight:600;border-bottom-color:var(--accent)}
+.steptab.current .st-num{background:var(--accent);color:#fff}
 .st-chk{width:10px;height:10px;stroke-width:3.5}
 
 /* cards */
 .card{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-l);
-  margin-bottom:14px;box-shadow:var(--shadow-sm)}
+  margin-bottom:14px;}
 .card-head{padding:15px 18px 0}
 .card-body{padding:15px 18px 18px}
 .card-title{font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:9px}
-.ct-ico{width:28px;height:28px;border-radius:8px;background:var(--accent-soft);
+.ct-ico{width:28px;height:28px;border-radius:var(--r-s);background:var(--hover);
   display:grid;place-items:center;flex:none}
-.ct-ico svg{width:15px;height:15px;color:var(--ink);stroke-width:1.9}
+.ct-ico svg{width:15px;height:15px;color:var(--ink-2);stroke-width:1.9}
 .card-sub{color:var(--ink-3);font-size:12px;margin-top:5px;margin-left:37px;line-height:1.5}
 
 /* form */
@@ -143,7 +159,7 @@ input[type=text],input[type=number],select,textarea{
   width:100%;padding:9px 11px;border:1px solid var(--line-2);border-radius:var(--r-s);
   font-size:13px;color:var(--ink);background:var(--bg);transition:.13s}
 input::placeholder,textarea::placeholder{color:var(--ink-3)}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink);
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);
   box-shadow:0 0 0 3px var(--accent-soft)}
 input:disabled{background:var(--hover);color:var(--ink-3)}
 textarea{resize:vertical;min-height:60px;line-height:1.5}
@@ -155,7 +171,7 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
 .affix.has-pre input{padding-left:24px}
 
 .assume{display:inline-flex;align-items:center;gap:4px;font-size:9.5px;font-weight:600;
-  letter-spacing:.3px;background:var(--blue-soft);color:var(--blue);padding:3px 7px;
+  letter-spacing:.3px;background:var(--violet-soft);color:var(--violet);padding:3px 7px;
   border-radius:5px;vertical-align:middle}
 .assume svg{width:10px;height:10px;stroke-width:2.4}
 
@@ -163,16 +179,16 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
 .opt-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px}
 .opt-card{border:1px solid var(--line-2);border-radius:var(--r);padding:14px;
   cursor:pointer;transition:.14s;position:relative;background:var(--bg)}
-.opt-card:hover{border-color:var(--ink-3)}
-.opt-card.sel{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
-.opt-card .oc-ico{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;
+.opt-card:hover{border-color:#bebebe}
+.opt-card.sel{border-color:#bebebe;box-shadow:0 0 0 1px #bebebe}
+.opt-card .oc-ico{width:34px;height:34px;border-radius:var(--r-s);display:grid;place-items:center;
   margin-bottom:10px}
 .opt-card .oc-ico svg{width:17px;height:17px;stroke-width:1.9}
 .oc-name{font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px}
 .oc-desc{font-size:11.5px;color:var(--ink-3);margin-top:3px;line-height:1.45}
 .oc-radio{position:absolute;top:12px;right:12px;width:16px;height:16px;border-radius:50%;
   border:1.5px solid var(--line-2);transition:.13s}
-.opt-card.sel .oc-radio{border-color:var(--ink);background:var(--ink)}
+.opt-card.sel .oc-radio{border-color:var(--accent);background:var(--accent)}
 .opt-card.sel .oc-radio::after{content:"";position:absolute;inset:4px;border-radius:50%;background:#fff}
 .mini-tag{font-size:8.5px;font-weight:700;letter-spacing:.4px;padding:2px 5px;border-radius:4px;
   background:var(--blue-soft);color:var(--blue)}
@@ -184,31 +200,31 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
 .lrow:last-of-type{border-bottom:none}
 .lrow.org{grid-template-columns:1fr 160px 32px;gap:11px}
 .l-id{display:flex;align-items:center;gap:10px}
-.l-ava{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;
+.l-ava{width:32px;height:32px;border-radius:var(--r-s);display:grid;place-items:center;
   font-weight:700;font-size:11.5px;flex:none}
 .l-name{font-size:12.5px;font-weight:600}
 .l-meta{font-size:11px;color:var(--ink-3);margin-top:1px}
 .pill{font-size:10px;font-weight:600;padding:5px 9px;border-radius:6px;text-align:center}
-.icon-btn{width:30px;height:30px;border-radius:7px;border:1px solid var(--line-2);
+.icon-btn{width:30px;height:30px;border-radius:var(--r-s);border:1px solid var(--line-2);
   display:grid;place-items:center;color:var(--ink-3);transition:.13s;background:var(--bg)}
 .icon-btn:hover:not(:disabled){border-color:var(--red);color:var(--red);background:var(--red-soft)}
 .icon-btn:disabled{opacity:.35;cursor:not-allowed}
 .icon-btn svg{width:14px;height:14px;stroke-width:2}
-.add-btn{display:flex;align-items:center;gap:7px;padding:10px 0 2px;color:var(--ink);
+.add-btn{display:flex;align-items:center;gap:7px;padding:10px 0 2px;color:var(--ink-2);
   font-weight:550;font-size:12.5px}
 .add-btn svg{width:15px;height:15px;stroke-width:2}
-.add-btn:hover{color:var(--blue)}
+.add-btn:hover{color:var(--ink)}
 .lrow.chan{grid-template-columns:1fr 130px 124px;gap:11px}
-.c-dot{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;flex:none}
+.c-dot{width:28px;height:28px;border-radius:var(--r-s);display:grid;place-items:center;flex:none}
 .c-dot svg{width:14px;height:14px;stroke-width:1.9}
 
 /* service modules */
 .mods{display:flex;flex-direction:column;gap:11px}
 .mod{border:1px solid var(--line);border-radius:var(--r-l);overflow:hidden;
   transition:.15s;background:var(--bg)}
-.mod.on{border-color:var(--ink)}
+.mod.on{border-color:#bebebe}
 .mod-top{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer}
-.mod-ic{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;flex:none}
+.mod-ic{width:36px;height:36px;border-radius:var(--r-s);display:grid;place-items:center;flex:none}
 .mod-ic svg{width:18px;height:18px;stroke-width:1.9}
 .mod-meta{flex:1;min-width:0}
 .mod-name{font-size:13px;font-weight:600;display:flex;align-items:center;gap:7px}
@@ -217,7 +233,7 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
   transition:.15s;flex:none}
 .sw::after{content:"";position:absolute;width:16px;height:16px;border-radius:50%;
   background:#fff;top:3px;left:3px;transition:.15s;box-shadow:0 1px 2px rgba(0,0,0,.25)}
-.mod.on .sw{background:var(--ink)}
+.mod.on .sw{background:var(--accent)}
 .mod.on .sw::after{left:19px}
 .mod-body{border-top:1px solid var(--line);max-height:0;overflow:hidden;
   transition:max-height .22s ease,padding .22s ease;padding:0 16px}
@@ -227,33 +243,33 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
 .tiers{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
 .tier{border:1px solid var(--line-2);border-radius:var(--r-s);padding:11px;cursor:pointer;
   transition:.13s;position:relative;background:var(--bg)}
-.tier:hover{border-color:var(--ink-3)}
-.tier.sel{border-color:var(--ink);background:var(--accent-soft)}
+.tier:hover{border-color:#bebebe}
+.tier.sel{border-color:#bebebe;background:var(--accent-soft)}
 .tier.sel::after{content:"";position:absolute;top:8px;right:8px;width:14px;height:14px;
-  border-radius:50%;background:var(--ink);
+  border-radius:50%;background:var(--accent);
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
   background-repeat:no-repeat;background-position:center}
 .tier-name{font-size:12px;font-weight:600}
-.tier-price{font-size:11.5px;color:var(--ink);font-weight:550;margin:4px 0 5px}
+.tier-price{font-size:11.5px;color:var(--accent);font-weight:550;margin:4px 0 5px}
 .tier-feat{font-size:10.5px;color:var(--ink-3);line-height:1.4}
 
 /* metrics */
 .metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;margin-bottom:14px}
 .metric{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-l);
-  padding:15px 16px;box-shadow:var(--shadow-sm)}
+  padding:15px 16px;}
 .metric .m-k{font-size:11px;color:var(--ink-3);font-weight:500;margin-bottom:6px}
 .metric .m-v{font-size:22px;font-weight:680;letter-spacing:-.5px}
-.metric.feature{background:var(--ink);color:#fff}
-.metric.feature .m-k{color:#9a9ea4}
-.metric.feature .m-v{font-size:26px}
+.metric.feature{background:var(--bg);border:1px solid var(--line);color:var(--ink)}
+.metric.feature .m-k{color:var(--ink-3)}
+.metric.feature .m-v{font-size:26px;color:var(--ink)}
 
 /* compliance */
 .chk{display:flex;gap:11px;padding:12px 0;border-bottom:1px solid var(--line);align-items:flex-start}
 .chk:last-child{border-bottom:none}
-.cbox{width:19px;height:19px;border-radius:6px;border:1.5px solid var(--line-2);flex:none;
+.cbox{width:19px;height:19px;border-radius:5px;border:1.5px solid var(--line-2);flex:none;
   cursor:pointer;transition:.13s;margin-top:1px}
-.cbox:hover{border-color:var(--ink-3)}
-.cbox.on{background:var(--ink);border-color:var(--ink);
+.cbox:hover{border-color:#bebebe}
+.cbox.on{background:var(--accent);border-color:var(--accent);
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
   background-repeat:no-repeat;background-position:center}
 .chk-txt strong{font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:7px}
@@ -266,7 +282,7 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
 .aside-lbl{font-size:10.5px;font-weight:600;letter-spacing:.5px;color:var(--ink-3);
   text-transform:uppercase;margin-bottom:13px}
 .sum{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-l);
-  overflow:hidden;box-shadow:var(--shadow-sm);margin-bottom:13px}
+  overflow:hidden;;margin-bottom:13px}
 .sum-top{padding:14px 16px;border-bottom:1px solid var(--line)}
 .sum-ref{font-size:10px;color:var(--ink-3);font-weight:500;letter-spacing:.3px}
 .sum-name{font-size:14px;font-weight:650;margin-top:3px;line-height:1.3;letter-spacing:-.2px}
@@ -279,14 +295,14 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
 .sum-foot{padding:13px 16px;background:var(--canvas);border-top:1px solid var(--line);
   display:flex;justify-content:space-between;align-items:center}
 .sum-foot .sf-k{font-size:11px;color:var(--ink-3);font-weight:500}
-.sum-foot .sf-v{font-size:19px;font-weight:680;letter-spacing:-.4px}
+.sum-foot .sf-v{font-size:19px;font-weight:680;letter-spacing:-.4px;color:var(--accent)}
 .meter{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-l);
-  padding:14px 16px;box-shadow:var(--shadow-sm);margin-bottom:13px}
+  padding:14px 16px;;margin-bottom:13px}
 .meter-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px}
 .meter-top b{font-size:12px;font-weight:600}
-.meter-top span{font-size:12px;font-weight:600;color:var(--ink)}
+.meter-top span{font-size:12px;font-weight:600;color:var(--accent)}
 .bar{height:6px;border-radius:20px;background:var(--accent-soft);overflow:hidden}
-.bar i{display:block;height:100%;background:var(--ink);border-radius:20px;transition:width .35s ease}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:20px;transition:width .35s ease}
 .meter-list{margin-top:11px;display:flex;flex-direction:column;gap:7px}
 .mli{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--ink-3)}
 .mli .d{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--line-2);flex:none}
@@ -295,11 +311,11 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
   background-repeat:no-repeat;background-position:center}
 .aside-note{font-size:11px;color:var(--ink-3);line-height:1.5;padding:2px;display:flex;gap:8px}
-.aside-note svg{width:14px;height:14px;flex:none;margin-top:1px;stroke-width:1.9}
+.aside-note svg{width:14px;height:14px;flex:none;margin-top:1px;stroke-width:1.9;color:var(--ink-3)}
 .aside-note b{color:var(--ink-2);font-weight:600}
 
 /* foot nav */
-.footnav{position:fixed;bottom:0;left:288px;right:320px;background:var(--bg);
+.footnav{position:fixed;bottom:0;left:236px;right:320px;background:var(--bg);
   border-top:1px solid var(--line);padding:11px 32px;display:flex;align-items:center;
   gap:12px;z-index:20}
 .footnav .gap{flex:1}
@@ -307,21 +323,21 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
 .foot-txt b{color:var(--ink);font-weight:600}
 
 /* review */
-.preview-note{display:flex;gap:10px;align-items:center;background:var(--blue-soft);
-  border:1px solid #d4ddf9;border-radius:var(--r);padding:11px 14px;margin-bottom:16px}
-.preview-note svg{width:16px;height:16px;color:var(--blue);flex:none;stroke-width:1.9}
-.preview-note span{font-size:12px;color:#2a4ba8}
-.preview-note b{color:#1c3680}
+.preview-note{display:flex;gap:10px;align-items:center;background:var(--hover);
+  border:1px solid var(--line);border-radius:var(--r);padding:11px 14px;margin-bottom:16px}
+.preview-note svg{width:16px;height:16px;color:var(--ink-3);flex:none;stroke-width:1.9}
+.preview-note span{font-size:12px;color:var(--ink-2)}
+.preview-note b{color:var(--ink)}
 .rev-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
 .rev-card{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-l);
-  padding:15px 17px;box-shadow:var(--shadow-sm)}
+  padding:15px 17px;}
 .rev-card.wide{grid-column:1/-1}
 .rev-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .rev-top h4{font-size:12px;font-weight:600;display:flex;align-items:center;gap:7px}
-.rev-top h4 .ico{width:22px;height:22px;border-radius:6px;background:var(--accent-soft);
+.rev-top h4 .ico{width:22px;height:22px;border-radius:5px;background:var(--hover);
   display:grid;place-items:center}
-.rev-top h4 .ico svg{width:12px;height:12px;stroke-width:1.9}
-.rev-edit{font-size:11.5px;color:var(--blue);font-weight:550}
+.rev-top h4 .ico svg{width:12px;height:12px;stroke-width:1.9;color:var(--ink-3)}
+.rev-edit{font-size:11.5px;color:var(--ink-3);font-weight:550}
 .rev-edit:hover{text-decoration:underline}
 .rev-line{display:flex;justify-content:space-between;padding:6px 0;font-size:12px;
   border-bottom:1px solid var(--line)}
@@ -331,58 +347,54 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
 .rev-line .rv.muted{font-weight:400;color:var(--ink-3);font-style:italic}
 .send-bar{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-l);
   padding:17px 19px;margin-top:14px;display:flex;align-items:center;gap:16px;
-  box-shadow:var(--shadow-sm)}
+  }
 .send-bar .sb-txt{flex:1}
 .send-bar h4{font-size:14px;font-weight:650}
 .send-bar p{font-size:12px;color:var(--ink-3);margin-top:3px}
 
 .toast{position:fixed;bottom:72px;left:50%;transform:translateX(-50%) translateY(16px);
-  background:var(--ink);color:#fff;padding:11px 18px;border-radius:10px;font-size:12.5px;
+  background:var(--accent);color:#fff;padding:11px 18px;border-radius:8px;font-size:12.5px;
   font-weight:500;box-shadow:var(--shadow-lg);opacity:0;transition:.28s;z-index:60;
   display:flex;align-items:center;gap:9px;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.toast svg{width:15px;height:15px;color:#6ee7a0;stroke-width:2.4}
+.toast svg{width:15px;height:15px;color:#a8d8f8;stroke-width:2.4}
 
-.modal-bg{position:fixed;inset:0;background:rgba(20,23,28,.5);z-index:80;display:none;
+.modal-bg{position:fixed;inset:0;background:rgba(14,104,220,.18);z-index:80;display:none;
   align-items:center;justify-content:center;backdrop-filter:blur(2px)}
 .modal-bg.show{display:flex}
-.modal{background:var(--bg);border-radius:16px;width:430px;max-width:92vw;overflow:hidden;
-  box-shadow:var(--shadow-lg)}
+.modal{background:var(--bg);border-radius:8px;width:430px;max-width:92vw;overflow:hidden;
+  box-shadow:var(--shadow-lg);border:1px solid var(--line)}
 .modal-in{padding:24px 26px;text-align:center}
-.modal-ic{width:50px;height:50px;border-radius:12px;background:var(--accent-soft);
+.modal-ic{width:50px;height:50px;border-radius:8px;background:var(--accent-soft);
   display:grid;place-items:center;margin:0 auto 14px}
-.modal-ic svg{width:24px;height:24px;color:var(--ink);stroke-width:1.9}
+.modal-ic svg{width:24px;height:24px;color:var(--accent);stroke-width:1.9}
 .modal h3{font-size:18px;font-weight:680;letter-spacing:-.3px}
 .modal p{font-size:12.5px;color:var(--ink-2);margin-top:7px;line-height:1.55}
 .modal-ref{font-size:12px;font-weight:550;background:var(--canvas);border:1px solid var(--line);
-  padding:7px 13px;border-radius:8px;display:inline-block;margin-top:13px}
+  padding:7px 13px;border-radius:var(--r);display:inline-block;margin-top:13px}
 .modal-foot{padding:0 26px 24px;display:flex;gap:9px}
 .modal-foot .btn{flex:1;justify-content:center}
 
 .hidden{display:none!important}
 
 @media(max-width:1200px){.canvas{grid-template-columns:1fr}.aside{display:none}.footnav{right:0}}
-@media(max-width:780px){.app{grid-template-columns:52px 1fr}.side{display:none}.footnav{left:52px}}
+@media(max-width:780px){.app{grid-template-columns:1fr}.side{display:none}.footnav{left:0}}
 </style>
 </head>
 <body>
 
 <div class="app">
-  <div class="rail-mini">
-    <div class="rail-logo">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#1a1d21" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-    </div>
-    <div class="rail-ws active">S</div>
-    <div class="rail-ws">G</div>
-    <div class="rail-ic" style="margin-top:4px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
-    <div class="spacer"></div>
-    <div class="rail-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
-    <div class="rail-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
-    <div class="rail-ws" style="border-radius:50%">A</div>
-  </div>
 
   <aside class="side">
-    <div class="side-head"><div class="side-title">Shield Commerce</div></div>
+    <div class="side-head">
+      <button class="side-toggle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <div class="side-brand">
+        <div class="side-title"><span class="t-blue">Shield</span><span class="t-dark">Commerce</span></div>
+        <div class="side-ver">v 1.0 · Lead Ops</div>
+      </div>
+    </div>
     <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>Dashboard</div>
     <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Campaigns</div>
     <div class="nav-group">Commerce</div>
@@ -398,8 +410,10 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
     <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="6.5" cy="12" r="2.5"/><circle cx="17" cy="14" r="2.5"/><circle cx="9" cy="19" r="2.5"/></svg>Themes</div>
     <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings</div>
     <div class="side-foot">
-      <div class="limit-pill">Lead Ops workspace</div>
-      <div class="side-user"><div class="u-ava">DR</div><div>Dana Reyes<small>Lead Operations</small></div></div>
+      <div class="side-user">
+        <div class="u-ava">DR</div>
+        <div><div style="font-weight:600;font-size:12.5px">Dana Reyes</div><small>Lead Operations</small></div>
+      </div>
     </div>
   </aside>
 
@@ -426,7 +440,7 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
 
         <section class="stepview" data-step="0">
           <div class="page-head">
-            <div class="ph-kicker">Step 1 of 7 — Foundation</div>
+            <div class="ph-kicker">Step 1 of 8 — Foundation</div>
             <div class="ph-title">Create a new offer</div>
             <div class="ph-desc">An offer packages a litigation campaign — or any future professional service — into terms a client firm can review and accept. Start by choosing what you're selling.</div>
           </div>
@@ -473,9 +487,9 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
 
         <section class="stepview hidden" data-step="1">
           <div class="page-head">
-            <div class="ph-kicker">Step 2 of 7 — The Deal</div>
+            <div class="ph-kicker">Step 2 of 8 — The Deal</div>
             <div class="ph-title">Participating organizations</div>
-            <div class="ph-desc">A litigation campaign is a multi-party deal. Assign every partner and their role — Shield often plays more than one. <span class="assume"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>ASSUMPTION</span> roles inferred from call notes.</div>
+            <div class="ph-desc">A litigation campaign is a multi-party deal. Assign every partner and their role — Shield often plays more than one.</div>
           </div>
           <div class="card">
             <div class="card-head">
@@ -509,9 +523,9 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
 
         <section class="stepview hidden" data-step="2">
           <div class="page-head">
-            <div class="ph-kicker">Step 3 of 7 — Acquisition</div>
+            <div class="ph-kicker">Step 3 of 8 — Acquisition</div>
             <div class="ph-title">Campaign &amp; marketing channels</div>
-            <div class="ph-desc">Define the client-facing campaign and how leads will be sourced. Channel spend feeds the cost model in Step 5.</div>
+            <div class="ph-desc">Define the client-facing campaign and how leads will be sourced. Channel spend feeds the cost model in Step 6.</div>
           </div>
           <div class="card">
             <div class="card-head">
@@ -546,18 +560,134 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
 
         <section class="stepview hidden" data-step="3">
           <div class="page-head">
-            <div class="ph-kicker">Step 4 of 7 — The Offering</div>
+            <div class="ph-kicker">Step 4 of 8 — Qualification</div>
+            <div class="ph-title">Qualification expectations</div>
+            <div class="ph-desc">Define who is eligible to become a claimant on this campaign. These criteria drive the pre-screen questions served to prospects and determine intake acceptance.</div>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <div class="card-title"><span class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 14 14"/></svg></span>Geographic &amp; temporal exposure window</div>
+              <div class="card-sub">Claimants must have resided in the affected area during the contamination period.</div>
+            </div>
+            <div class="card-body">
+              <div class="row-2">
+                <div class="field">
+                  <label class="flabel">Jurisdiction</label>
+                  <input type="text" value="Riverside County, California">
+                </div>
+                <div class="field">
+                  <label class="flabel">Eligible zip codes <span class="tag">OPTIONAL</span></label>
+                  <input type="text" value="92501, 92503, 92504, 92506, 92507, 92508">
+                  <div class="fhint">Leave blank to accept any address within the jurisdiction.</div>
+                </div>
+              </div>
+              <div class="row-2">
+                <div class="field">
+                  <label class="flabel">Exposure window — start</label>
+                  <input type="text" value="Jan 1, 2009">
+                </div>
+                <div class="field">
+                  <label class="flabel">Exposure window — end</label>
+                  <input type="text" value="Dec 31, 2021">
+                </div>
+              </div>
+              <div class="field">
+                <label class="flabel">Minimum continuous residence</label>
+                <select>
+                  <option>6 months</option>
+                  <option selected>12 months</option>
+                  <option>24 months</option>
+                  <option>Any duration</option>
+                </select>
+                <div class="fhint">Consecutive months the claimant must have lived in the exposure area during the window.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <div class="card-title"><span class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>Medical inclusion criteria</div>
+              <div class="card-sub">At least one condition must be confirmed by medical records. Enable the diagnoses relevant to this matter.</div>
+            </div>
+            <div class="card-body" id="inclusionList"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <div class="card-title"><span class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></span>Automatic disqualifiers</div>
+              <div class="card-sub">Any of these factors immediately removes a prospect from consideration, regardless of other criteria.</div>
+            </div>
+            <div class="card-body" id="exclusionList"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <div class="card-title"><span class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>Screening thresholds</div>
+              <div class="card-sub">Minimum requirements a prospect must meet to be forwarded to intake.</div>
+            </div>
+            <div class="card-body">
+              <div class="row-3">
+                <div class="field">
+                  <label class="flabel">Inclusion criteria required</label>
+                  <select>
+                    <option>Any 1 condition</option>
+                    <option selected>Any 1 + geographic match</option>
+                    <option>2 or more conditions</option>
+                    <option>All enabled criteria</option>
+                  </select>
+                  <div class="fhint">How many inclusion boxes the prospect must tick.</div>
+                </div>
+                <div class="field">
+                  <label class="flabel">Pre-screen question set</label>
+                  <select>
+                    <option>Minimal — 3 questions</option>
+                    <option selected>Standard — 6 questions</option>
+                    <option>Extended — 12 questions</option>
+                  </select>
+                  <div class="fhint">Question depth shown to incoming prospects.</div>
+                </div>
+                <div class="field">
+                  <label class="flabel">Target intake pass rate</label>
+                  <input type="text" value="≥ 55%">
+                  <div class="fhint">Expected % of screened leads forwarded to intake.</div>
+                </div>
+              </div>
+              <div class="row-2" style="margin-top:4px">
+                <div class="field">
+                  <label class="flabel">Medical record requirement</label>
+                  <select>
+                    <option selected>Records required before intake completes</option>
+                    <option>Records requested after sign-up</option>
+                    <option>Records waived — verbal confirmation sufficient</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label class="flabel">Age at time of filing</label>
+                  <select>
+                    <option selected>18 years or older</option>
+                    <option>Any age (guardian consent for minors)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="stepview hidden" data-step="4">
+          <div class="page-head">
+            <div class="ph-kicker">Step 5 of 8 — The Offering</div>
             <div class="ph-title">Service configuration</div>
             <div class="ph-desc">Toggle the services included in this offer. Each is a self-contained module with tier options — the same pattern future commerce use cases (e.g. customer qualification) will reuse.</div>
           </div>
           <div class="mods" id="serviceList"></div>
         </section>
 
-        <section class="stepview hidden" data-step="4">
+        <section class="stepview hidden" data-step="5">
           <div class="page-head">
-            <div class="ph-kicker">Step 5 of 7 — Commercials</div>
+            <div class="ph-kicker">Step 6 of 8 — Commercials</div>
             <div class="ph-title">Pricing &amp; targets</div>
-            <div class="ph-desc">Set the volume target and per-claimant charge. The model updates in real time. <span class="assume"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>ASSUMPTION</span> $2,000/claimant from call notes.</div>
+            <div class="ph-desc">Set the volume target and per-claimant charge. The model updates in real time.</div>
           </div>
           <div class="metrics">
             <div class="metric"><div class="m-k">Claimant target</div><div class="m-v" id="cVol">100</div></div>
@@ -608,9 +738,9 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
           </div>
         </section>
 
-        <section class="stepview hidden" data-step="5">
+        <section class="stepview hidden" data-step="6">
           <div class="page-head">
-            <div class="ph-kicker">Step 6 of 7 — Guardrails</div>
+            <div class="ph-kicker">Step 7 of 8 — Guardrails</div>
             <div class="ph-title">Compliance requirements</div>
             <div class="ph-desc">Confirm regulatory and contractual guardrails before the offer can be sent. Required items must be acknowledged.</div>
           </div>
@@ -635,7 +765,7 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
           </div>
         </section>
 
-        <section class="stepview hidden" data-step="6">
+        <section class="stepview hidden" data-step="7">
           <div class="page-head">
             <div class="ph-kicker">Final — Review &amp; Send</div>
             <div class="ph-title">Review the offer</div>
@@ -664,15 +794,21 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
               <div class="rev-line"><span class="rk">Channels</span><span class="rv" id="rvChan">3 active</span></div>
             </div>
             <div class="rev-card">
-              <div class="rev-top"><h4><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/></svg></span>Services</h4><button class="rev-edit" onclick="goStep(3)">Edit</button></div>
+              <div class="rev-top"><h4><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>Qualification</h4><button class="rev-edit" onclick="goStep(3)">Edit</button></div>
+              <div class="rev-line"><span class="rk">Jurisdiction</span><span class="rv">Riverside County, CA</span></div>
+              <div class="rev-line"><span class="rk">Exposure window</span><span class="rv">2009 – 2021</span></div>
+              <div class="rev-line"><span class="rk">Inclusion criteria</span><span class="rv" id="rvInclusion">2 active</span></div>
+            </div>
+            <div class="rev-card">
+              <div class="rev-top"><h4><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/></svg></span>Services</h4><button class="rev-edit" onclick="goStep(4)">Edit</button></div>
               <div id="rvServices"></div>
             </div>
             <div class="rev-card wide">
-              <div class="rev-top"><h4><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>Commercial terms</h4><button class="rev-edit" onclick="goStep(4)">Edit</button></div>
+              <div class="rev-top"><h4><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>Commercial terms</h4><button class="rev-edit" onclick="goStep(5)">Edit</button></div>
               <div class="row-3">
                 <div><div class="rk" style="font-size:11px;color:var(--ink-3)">Claimant target</div><div id="rvVol" style="font-size:17px;font-weight:680;margin-top:3px">100</div></div>
                 <div><div class="rk" style="font-size:11px;color:var(--ink-3)">Charge / claimant</div><div id="rvRate" style="font-size:17px;font-weight:680;margin-top:3px">$2,000</div></div>
-                <div><div class="rk" style="font-size:11px;color:var(--ink-3)">Total offer value</div><div id="rvTotal" style="font-size:17px;font-weight:680;margin-top:3px">$200,000</div></div>
+                <div><div class="rk" style="font-size:11px;color:var(--ink-3)">Total offer value</div><div id="rvTotal" style="font-size:17px;font-weight:680;margin-top:3px;color:var(--ink)">$200,000</div></div>
               </div>
             </div>
           </div>
@@ -754,42 +890,42 @@ textarea{resize:vertical;min-height:60px;line-height:1.5}
 </div>
 
 <script>
-const STEPS=['Setup','Participants','Campaign','Services','Pricing','Compliance','Review'];
+const STEPS=['Setup','Participants','Campaign','Qualification','Services','Pricing','Compliance','Review'];
 let cur=0;
 
 const offerTypes=[
   {id:'litigation',name:'Litigation Campaign',desc:'Claimant acquisition for a mass-tort matter',tag:'PRIMARY',tagc:'core',
-   ic:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',col:'var(--ink)',bg:'var(--accent-soft)'},
+   ic:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',col:'var(--accent)',bg:'var(--accent-soft)'},
   {id:'qualification',name:'Customer Qualification',desc:'Screen & qualify prospects pre-conversion',tag:'NEW',tagc:'',
-   ic:'<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>',col:'var(--blue)',bg:'var(--blue-soft)'},
+   ic:'<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>',col:'var(--violet)',bg:'var(--violet-soft)'},
   {id:'service',name:'Professional Service',desc:'Generic configurable service offering',tag:'',tagc:'amber',
    ic:'<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',col:'var(--amber)',bg:'var(--amber-soft)'},
 ];
 let selType='litigation';
 
 let orgs=[
-  {n:'Shield Legal',role:'Lead Operations',meta:'Seller · also media buyer',av:'SL',col:'var(--ink)',bg:'var(--accent-soft)'},
+  {n:'Shield Legal',role:'Lead Operations',meta:'Seller · also media buyer',av:'SL',col:'var(--accent)',bg:'var(--accent-soft)'},
   {n:'Hartwell & Cruz LLP',role:'Primary Litigator',meta:'Counterparty · law firm',av:'HC',col:'var(--amber)',bg:'var(--amber-soft)'},
-  {n:'Meridian Capital',role:'Investment Partner',meta:'Funds campaign spend',av:'MC',col:'var(--blue)',bg:'var(--blue-soft)'},
+  {n:'Meridian Capital',role:'Investment Partner',meta:'Funds campaign spend',av:'MC',col:'var(--violet)',bg:'var(--violet-soft)'},
 ];
 const roleColors={
-  'Lead Operations':'background:var(--accent-soft);color:var(--ink)',
+  'Lead Operations':'background:var(--accent-soft);color:var(--accent)',
   'Primary Litigator':'background:var(--amber-soft);color:var(--amber)',
-  'Investment Partner':'background:var(--blue-soft);color:var(--blue)',
-  'Marketing Agency':'background:var(--violet-soft);color:var(--violet)',
+  'Investment Partner':'background:var(--violet-soft);color:var(--violet)',
+  'Marketing Agency':'background:var(--blue-soft);color:var(--blue)',
   'Co-Counsel':'background:var(--green-soft);color:var(--green)',
 };
 
 let channels=[
-  {n:'Google Ads',spend:42000,cpl:185,ic:'<circle cx="12" cy="12" r="10"/><path d="M12 2a15 15 0 0 1 0 20M2 12h20"/>',col:'var(--blue)',bg:'var(--blue-soft)'},
-  {n:'TikTok Ads',spend:31000,cpl:142,ic:'<path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>',col:'var(--ink)',bg:'var(--accent-soft)'},
+  {n:'Google Ads',spend:42000,cpl:185,ic:'<circle cx="12" cy="12" r="10"/><path d="M12 2a15 15 0 0 1 0 20M2 12h20"/>',col:'var(--accent)',bg:'var(--accent-soft)'},
+  {n:'TikTok Ads',spend:31000,cpl:142,ic:'<path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>',col:'var(--ink)',bg:'var(--hover)'},
   {n:'Meta / Facebook',spend:24000,cpl:210,ic:'<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>',col:'var(--violet)',bg:'var(--violet-soft)'},
 ];
 
 let services=[
   {id:'leads',name:'Lead Delivery',desc:'Sourced, contacted & verified claimant leads',tag:'CORE',tagc:'core',
    ic:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>',
-   col:'var(--ink)',bg:'var(--accent-soft)',on:true,tier:1,
+   col:'var(--accent)',bg:'var(--accent-soft)',on:true,tier:1,
    tiers:[{n:'Standard',p:'Included',f:'Verified contact + opt-in consent'},
           {n:'Enhanced',p:'+$15 / lead',f:'Adds eligibility pre-screen & dedupe'},
           {n:'Premium',p:'+$40 / lead',f:'Full medical-criteria qualification'}]},
@@ -801,7 +937,7 @@ let services=[
           {n:'White-glove',p:'+$22,000',f:'Dedicated intake team + QA review'}]},
   {id:'casemgmt',name:'Case Management',desc:'Ongoing claimant communication & records',tag:'',tagc:'',
    ic:'<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="15" x2="15" y2="15"/>',
-   col:'var(--blue)',bg:'var(--blue-soft)',on:false,tier:0,
+   col:'var(--violet)',bg:'var(--violet-soft)',on:false,tier:0,
    tiers:[{n:'Basic',p:'Included',f:'Status portal, quarterly updates'},
           {n:'Active',p:'+$18,000',f:'Monthly outreach + document chase'},
           {n:'Full',p:'+$45,000',f:'End-to-end claimant lifecycle mgmt'}]},
@@ -821,10 +957,24 @@ let compliance=[
   {t:'Conflict-of-interest screen',d:'Counterparty has cleared the claimant pool for conflicts.',req:false,on:false},
 ];
 
+const inclusionCriteria=[
+  {t:'Cancer — linked diagnoses',d:'Non-Hodgkin lymphoma, bladder cancer, kidney cancer, or leukemia confirmed after Jan 2009.',on:true},
+  {t:'Neurological disorder',d:'Parkinson\'s disease, peripheral neuropathy, or cognitive impairment with documented onset.',on:true},
+  {t:'Chronic kidney disease (CKD)',d:'Stage 2 or higher, first diagnosed after documented exposure start.',on:false},
+  {t:'Thyroid disorder',d:'Hypothyroidism, hyperthyroidism, or thyroid cancer with lab confirmation.',on:false},
+  {t:'Reproductive health impact',d:'Miscarriage, stillbirth, or birth defect in a child conceived during the exposure window.',on:false},
+];
+const exclusionCriteria=[
+  {t:'Prior settlement — named defendants',d:'Claimant has previously settled any claim against defendants in this matter.'},
+  {t:'Active overlapping litigation',d:'Claimant is currently a plaintiff in proceedings against the same defendants.'},
+  {t:'Statute of limitations expired',d:'More than 3 years have passed since diagnosis with no tolling agreement in place.'},
+  {t:'Exposure outside jurisdiction',d:'All confirmed exposure occurred outside the defined geographic boundary.'},
+];
+
 const splits=[
-  {n:'Shield Legal',meta:'Lead operations + media',pct:62,av:'SL',col:'var(--ink)',bg:'var(--accent-soft)'},
-  {n:'Meridian Capital',meta:'Investment partner',pct:30,av:'MC',col:'var(--blue)',bg:'var(--blue-soft)'},
-  {n:'Apex Media Group',meta:'Marketing agency',pct:8,av:'AX',col:'var(--violet)',bg:'var(--violet-soft)'},
+  {n:'Shield Legal',meta:'Lead operations + media',pct:62,av:'SL',col:'var(--accent)',bg:'var(--accent-soft)'},
+  {n:'Meridian Capital',meta:'Investment partner',pct:30,av:'MC',col:'var(--violet)',bg:'var(--violet-soft)'},
+  {n:'Apex Media Group',meta:'Marketing agency',pct:8,av:'AX',col:'var(--blue)',bg:'var(--blue-soft)'},
 ];
 
 const fmt=n=>'$'+n.toLocaleString('en-US');
@@ -849,6 +999,8 @@ function recompute(){
   document.getElementById('rvCP').textContent=document.getElementById('counterparty').value.split(' —')[0];
   document.getElementById('rvOrgs').textContent=orgs.length+' parties';
   document.getElementById('rvChan').textContent=channels.length+' active';
+  const rvInc=document.getElementById('rvInclusion');
+  if(rvInc)rvInc.textContent=inclusionCriteria.filter(c=>c.on).length+' active';
   document.getElementById('rvVol').textContent=vol;
   document.getElementById('rvRate').textContent=fmt(rate);
   document.getElementById('rvTotal').textContent=fmt(total);
@@ -863,6 +1015,7 @@ function updateMeter(){
     {k:'Offer type & details',ok:!!document.getElementById('offerName').value},
     {k:'Participating organizations',ok:orgs.length>=2},
     {k:'Campaign & channels',ok:channels.length>=1},
+    {k:'Qualification criteria',ok:inclusionCriteria.some(c=>c.on)},
     {k:'Service configuration',ok:services.some(s=>s.on)},
     {k:'Pricing & targets',ok:(+document.getElementById('volInput').value>0&&+document.getElementById('rateInput').value>0)},
     {k:'Compliance acknowledged',ok:compliance.filter(c=>c.req).every(c=>c.on)},
@@ -912,7 +1065,7 @@ function renderOrgs(){
 }
 function addOrg(){
   orgs.push({n:'Apex Media Group',role:'Marketing Agency',meta:'Handles paid acquisition',
-    av:'AX',col:'var(--violet)',bg:'var(--violet-soft)'});
+    av:'AX',col:'var(--blue)',bg:'var(--blue-soft)'});
   renderOrgs();recompute();toast('Organization added — assign its role');
 }
 function rmOrg(i){if(orgs.length>2){orgs.splice(i,1);renderOrgs();recompute();}}
@@ -939,7 +1092,7 @@ function renderChannels(){
 function addChannel(){
   channels.push({n:'LinkedIn Ads',spend:15000,cpl:320,
     ic:'<rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/><path d="M8 9h4v2a4 4 0 0 1 8 0v10h-4v-9a1 1 0 0 0-2 0v9H8z"/>',
-    col:'var(--blue)',bg:'var(--blue-soft)'});
+    col:'var(--accent)',bg:'var(--accent-soft)'});
   renderChannels();recompute();toast('Channel added to media plan');
 }
 
@@ -978,10 +1131,32 @@ function renderSplits(){
         <div class="l-ava" style="background:${s.bg};color:${s.col}">${s.av}</div>
         <div><div class="l-name">${s.n}</div><div class="l-meta">${s.meta}</div></div>
       </div>
-      <div style="text-align:right;font-weight:680;font-size:14px">${s.pct}%</div>
+      <div style="text-align:right;font-weight:680;font-size:14px;color:var(--accent)">${s.pct}%</div>
     </div>`).join('');
 }
 
+function renderInclusion(){
+  document.getElementById('inclusionList').innerHTML=inclusionCriteria.map((c,i)=>`
+    <div class="mod ${c.on?'on':''}" style="border-radius:var(--r-s);margin-bottom:8px">
+      <div class="mod-top" style="padding:12px 14px" onclick="inclusionCriteria[${i}].on=!inclusionCriteria[${i}].on;renderInclusion();recompute()">
+        <div class="mod-meta">
+          <div class="mod-name" style="font-size:13px">${c.t}</div>
+          <div class="mod-desc">${c.d}</div>
+        </div>
+        <div class="sw"></div>
+      </div>
+    </div>`).join('');
+}
+function renderExclusion(){
+  document.getElementById('exclusionList').innerHTML=exclusionCriteria.map(c=>`
+    <div class="chk" style="align-items:flex-start">
+      <div style="width:8px;height:8px;border-radius:50%;background:var(--red);flex:none;margin-top:5px"></div>
+      <div class="chk-txt">
+        <strong>${c.t} <span class="req-tag req">AUTO-DISQUALIFY</span></strong>
+        <span>${c.d}</span>
+      </div>
+    </div>`).join('');
+}
 function renderCompliance(){
   document.getElementById('complianceList').innerHTML=compliance.map((c,i)=>`
     <div class="chk">
@@ -1021,7 +1196,7 @@ function toast(msg){
 }
 function openSend(){
   const missing=compliance.filter(c=>c.req&&!c.on);
-  if(missing.length){toast('Required compliance items unchecked — see Step 6');goStep(5);return;}
+  if(missing.length){toast('Required compliance items unchecked — see Step 7');goStep(6);return;}
   document.getElementById('sendModal').classList.add('show');
 }
 function closeSend(){document.getElementById('sendModal').classList.remove('show');}
@@ -1033,7 +1208,10 @@ function confirmSend(){
 }
 
 renderOfferTypes();renderOrgs();renderChannels();
+renderInclusion();renderExclusion();
 renderServices();renderSplits();renderCompliance();
+const _qs=new URLSearchParams(window.location.search).get('step');
+if(_qs!==null){cur=Math.max(0,Math.min(STEPS.length-1,parseInt(_qs)||0));}
 showStep();
 </script>
 </body>
